@@ -29,12 +29,12 @@ import sys
 import RPi.GPIO as GPIO
 
 ########################### Function Defs ########################
-def write(addr, regSize, data):
-	data = int(data, 16)
+def write(addr, regSize, tmpData):
+	tmpData = int(tmpData, 16)
 	data = [0] * regSize
 	i = 0
 	while (i < regSize):
-		data[i] = (0xFF & (data >> (i * 8)))
+		data[i] = (0xFF & (tmpData >> (i * 8)))
 		i += 1
 	if (regSize > 1):
 		if (regSize > 2):
@@ -134,7 +134,7 @@ def funcSelector():
 	print("\n    (2) Soft Reset")
 	print("\n    (3) read from registers")
 	print("\n    (4) write to register")
-	print("\n    (5) Call raspivid for 3 seconds" of video"")
+	print("\n    (5) Call raspivid for 3 seconds of video")
 	print("\n    (6) Enable I2S")
 	print("\n")
 	temp = input ()
