@@ -96,9 +96,9 @@ def readRegisters():
 	addrPost = [(0xFF & (addrInt >> 8)), (0xFF & addrInt)]
 	tmpAddr = addrInput.zfill(4)
 	num = int(input ("\nNumber of bytes to read: "))
-	addr = [int(tmpAddr[:2]), int(tmpAddr[2:])]
+	addr = [int(tmpAddr[:2], 16), int(tmpAddr[2:], 16)]
 	system("clear")	
-	print("Reading " + str(num) + " bytes from Address 0x" + str(addr[0]).zfill(2).upper() + str(addr[1]).zfill(2).upper() + "...\n") 
+	print("Reading " + str(num) + " bytes from Address 0x" + addrInput + "...\n") 
 	read(addrPost, num, addrInt) 
 	return
 
@@ -110,8 +110,8 @@ def writeReg():
 	tmpAddr = addrInput.zfill(4).upper()		#, 16)
 	tmpInt = int(tmpAddr, 16)
 	addrPost = [(0xFF & (tmpInt >> 8)), (0xFF & tmpInt)]
-	addr = [int(tmpAddr[:2]), int(tmpAddr[2:])]
-	tmpAddr = "%04d" % (int(tmpAddr),)
+	addr = [int(tmpAddr[:2], 16), int(tmpAddr[2:], 16)]
+	tmpAddr = "%04d" % (int(tmpAddr,16))
 	
 	tmpDataInput = input ("\nEnter data: ").upper()
 	regSize = len(str(tmpDataInput)) // 2 # grab the byte size of the register to be written (this must be equal to the requested write bytes input by the user)
