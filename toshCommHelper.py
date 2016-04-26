@@ -193,18 +193,27 @@ options = {1 : hardReset,
            7 : reenablei2c0,
 }
 
+
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 resetLine = 24
 GPIO.setup(resetLine, GPIO.OUT)
 GPIO.output(resetLine, 1)
 
-gpubus = 0 #dtparam=i2c_vc=on    
-gpiobus = 1 #dtparam=i2c_arm=on
+# gpubus = 0 #dtparam=i2c_vc=on    
+# gpiobus = 1 #dtparam=i2c_arm=on
 toshAddr = 0x0f
-i2cbus = gpiobus
+i2cbus = int(sys.argv[1])
+
+if i2cbus < 0 or i2cbus > 1:
+	system("clear")
+	input("Incorrect I2C bus entered.\nHit Enter to exit.")
+	sys.exit()
+
+
 system("clear")
-print("Only enter 'y' / 'n', ints or hex int (without the prefix).\n")
+print("Only enter 'y' / 'n', ints or hex int (without the prefix).\nCan write in blocks of 1, 2, 4 or 8 bytes.\nCommunicating on I2C bus " + str(i2cbus))
 # cond = input ("Are you communicating on i2c0 (gpu)? (y / n)")
 # if (cond == 'y'):
 # 	i2cbus = gpubus # 0 is gpu 1 is 
@@ -221,4 +230,5 @@ while (repeat != 0):
 system("clear")
 print("Goodbye")
 sleep(0.5)
+sys.exit()
 system("clear")
