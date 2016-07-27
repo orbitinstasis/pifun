@@ -1,0 +1,5 @@
+./resetI2C1
+raspivid -t 0 &
+sleep 0.6
+./enable_i2s &
+arecord -D hw:1,0 -t wav -c 2 -d 1400 -r 48000 -f S16_LE | aplay -D hw:0,0 -t wav -c 2 -r 48000 -f S16_LE &
